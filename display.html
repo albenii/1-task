@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Display Info</title>
+</head>
+<body>
+<h2>Received Data:</h2>
+<p><strong>Login:</strong> <span id="login"></span></p>
+<p><strong>Password:</strong> <span id="password"></span></p>
+<p><strong>SHA-256 Hash:</strong> <span id="hash"></span></p>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  document.getElementById("login").textContent = params.get("login");
+  document.getElementById("password").textContent = params.get("password");
+  document.getElementById("hash").textContent = params.get("hash");
+</script>
+</body>
+</html>

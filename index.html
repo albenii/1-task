@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+</head>
+<body>
+<h2>Login Form</h2>
+<form id="loginForm">
+  <label>Login:</label>
+  <input type="text" id="login" required><br><br>
+
+  <label>Password:</label>
+  <input type="password" id="password" required><br><br>
+
+  <button type="submit">Send</button>
+</form>
+
+<script>
+  function sha256(str) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(str);
+    return crypto.subtle.digest('SHA-256', data).then(hashBuffer => {
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    });
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const login = document.getElementById('login').value;
+    const password = document.getElementById('password').value;
+
+    sha256(password).then(hash => {
+      const url = `display.html?login=${encodeURIComponent(login)}&password=${encodeURIComponent(password)}&hash=${hash}`;
+      window.location.href = url;
+    });
+  });
+</script>
+</body>
+</html>
